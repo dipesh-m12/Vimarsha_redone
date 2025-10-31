@@ -1,0 +1,6 @@
+*.py
+venv
+object_detection/
+nlp/
+images/
+node_modules
