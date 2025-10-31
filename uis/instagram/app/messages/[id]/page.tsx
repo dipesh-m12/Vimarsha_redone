@@ -1,46 +1,21 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useParams } from "next/navigation"
 import { Navigation } from "@/components/navigation"
 import { ChatList } from "@/components/chat-list"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Send, Flag, Info } from "lucide-react"
-import type { Chat, Message, User } from "@/lib/dummy-data"
+import { dummyChats, dummyUsers } from "@/lib/dummy-data"
+import type { Chat, Message } from "@/lib/dummy-data"
 
 export default function ChatPage() {
   const params = useParams()
   const chatId = params.id as string
 
-  const [chats, setChats] = useState<Chat[]>([])
-  const [users, setUsers] = useState<User[]>([])
-  const [currentChat, setCurrentChat] = useState<Chat | null>(null)
+  const [currentChat, setCurrentChat] = useState<Chat | null>(dummyChats.find((c) => c.id === chatId) || null)
   const [messageInput, setMessageInput] = useState("")
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [chatsRes, usersRes] = await Promise.all([fetch("/api/chats"), fetch("/api/users")])
-
-        const chatsData = await chatsRes.json()
-        const usersData = await usersRes.json()
-
-        setChats(chatsData.conversations)
-        setUsers(usersData.users)
-
-        const chat = chatsData.conversations.find((c: Chat) => c.id === chatId)
-        setCurrentChat(chat)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [chatId])
 
   const handleSendMessage = () => {
     if (messageInput.trim() && currentChat) {
@@ -63,21 +38,10 @@ export default function ChatPage() {
   const getOtherUser = () => {
     if (!currentChat) return null
     const otherUserId = currentChat.participants.find((id) => id !== "current_user_id")
-    return users.find((u) => u.id === otherUserId)
+    return dummyUsers.find((u) => u.id === otherUserId)
   }
 
   const otherUser = getOtherUser()
-
-  if (loading) {
-    return (
-      <div className="md:ml-64">
-        <Navigation />
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-muted-foreground">Loading...</div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="md:ml-64">
@@ -88,7 +52,7 @@ export default function ChatPage() {
           <div className="p-4 border-b border-border">
             <h1 className="text-2xl font-bold text-foreground">Messages</h1>
           </div>
-          <ChatList chats={chats} users={users} currentChatId={chatId} />
+          <ChatList chats={dummyChats} users={dummyUsers} currentChatId={chatId} />
         </div>
 
         {/* Chat Area */}

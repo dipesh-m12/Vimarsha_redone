@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Heart, MessageCircle, Share2, Flag } from "lucide-react"
-import type { Post, User } from "@/lib/dummy-data"
-import { useState } from "react"
+import Image from "next/image";
+import { Heart, MessageCircle, Share2, Flag } from "lucide-react";
+import type { Post, User } from "@/lib/dummy-data";
+import { useState } from "react";
 
 interface PostCardProps {
-  post: Post
-  user: User
-  onFlag?: (postId: string) => void
+  post: Post;
+  user: User;
+  onFlag?: (postId: string) => void;
 }
 
 export function PostCard({ post, user, onFlag }: PostCardProps) {
-  const [liked, setLiked] = useState(false)
-  const [likeCount, setLikeCount] = useState(post.likes)
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.likes);
 
   const handleLike = () => {
-    setLiked(!liked)
-    setLikeCount(liked ? likeCount - 1 : likeCount + 1)
-  }
+    setLiked(!liked);
+    setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+  };
 
   return (
     <div className="bg-card border-b border-border">
@@ -33,8 +33,12 @@ export function PostCard({ post, user, onFlag }: PostCardProps) {
             className="rounded-full"
           />
           <div className="flex flex-col">
-            <span className="text-sm font-semibold text-foreground">{user.username}</span>
-            {user.isVerified && <span className="text-xs text-muted-foreground">Verified</span>}
+            <span className="text-sm font-semibold text-foreground">
+              {user.username}
+            </span>
+            {user.isVerified && (
+              <span className="text-xs text-muted-foreground">Verified</span>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -43,19 +47,34 @@ export function PostCard({ post, user, onFlag }: PostCardProps) {
               Flagged
             </span>
           )}
-          <button className="text-foreground hover:text-muted-foreground">⋯</button>
+          <button className="text-foreground hover:text-muted-foreground">
+            ⋯
+          </button>
         </div>
       </div>
 
       {/* Image */}
       <div className="relative w-full bg-muted" style={{ aspectRatio: "1" }}>
-        <Image src={post.image || "/placeholder.svg"} alt="Post image" fill className="object-cover" />
+        <Image
+          src={post.image || "/placeholder.svg"}
+          alt="Post image"
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Actions */}
       <div className="p-3 flex gap-4">
-        <button onClick={handleLike} className="hover:text-muted-foreground transition-colors">
-          <Heart size={24} className={liked ? "fill-destructive text-destructive" : "text-foreground"} />
+        <button
+          onClick={handleLike}
+          className="hover:text-muted-foreground transition-colors"
+        >
+          <Heart
+            size={24}
+            className={
+              liked ? "fill-destructive text-destructive" : "text-foreground"
+            }
+          />
         </button>
         <button className="hover:text-muted-foreground transition-colors text-foreground">
           <MessageCircle size={24} />
@@ -75,7 +94,9 @@ export function PostCard({ post, user, onFlag }: PostCardProps) {
 
       {/* Likes */}
       <div className="px-3 pb-2">
-        <p className="text-sm font-semibold text-foreground">{likeCount} likes</p>
+        <p className="text-sm font-semibold text-foreground">
+          {likeCount} likes
+        </p>
       </div>
 
       {/* Caption */}
@@ -104,5 +125,5 @@ export function PostCard({ post, user, onFlag }: PostCardProps) {
         </p>
       </div>
     </div>
-  )
+  );
 }

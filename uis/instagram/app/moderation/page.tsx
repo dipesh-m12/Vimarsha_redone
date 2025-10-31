@@ -1,51 +1,19 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { FlagStats } from "@/components/flag-stats"
 import { FlaggedContentCard } from "@/components/flagged-content-card"
 import { Button } from "@/components/ui/button"
 import { Search } from "lucide-react"
-import type { Flag, Post, Chat, User } from "@/lib/dummy-data"
+import { dummyPosts, dummyChats, dummyUsers, generateFlags } from "@/lib/dummy-data"
+import type { Flag } from "@/lib/dummy-data"
 
 export default function ModerationPage() {
-  const [flags, setFlags] = useState<Flag[]>([])
-  const [posts, setPosts] = useState<Post[]>([])
-  const [chats, setChats] = useState<Chat[]>([])
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
+  const flags: Flag[] = generateFlags()
   const [filterCategory, setFilterCategory] = useState<string>("all")
   const [filterSeverity, setFilterSeverity] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState("")
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [flagsRes, postsRes, chatsRes, usersRes] = await Promise.all([
-          fetch("/api/flagged"),
-          fetch("/api/posts"),
-          fetch("/api/chats"),
-          fetch("/api/users"),
-        ])
-
-        const flagsData = await flagsRes.json()
-        const postsData = await postsRes.json()
-        const chatsData = await chatsRes.json()
-        const usersData = await usersRes.json()
-
-        setFlags(flagsData.flaggedContent)
-        setPosts(postsData.posts)
-        setChats(chatsData.conversations)
-        setUsers(usersData.users)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   const filteredFlags = flags.filter((flag) => {
     if (filterCategory !== "all" && flag.category !== filterCategory) return false
@@ -54,20 +22,9 @@ export default function ModerationPage() {
     return true
   })
 
-  const getPost = (id: string) => posts.find((p) => p.id === id)
-  const getChat = (id: string) => chats.find((c) => c.id === id)
-  const getUser = (id: string) => users.find((u) => u.id === id)
-
-  if (loading) {
-    return (
-      <div className="md:ml-64">
-        <Navigation />
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-muted-foreground">Loading moderation dashboard...</div>
-        </div>
-      </div>
-    )
-  }
+  const getPost = (id: string) => dummyPosts.find((p) => p.id === id)
+  const getChat = (id: string) => dummyChats.find((c) => c.id === id)
+  const getUser = (id: string) => dummyUsers.find((u) => u.id === id)
 
   return (
     <div className="md:ml-64">

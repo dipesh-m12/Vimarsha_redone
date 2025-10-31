@@ -9,7 +9,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Instagram Clone",
-  description: "Instagram clone with content flagging",
+  description: "Instagram clone with content flagging - Static",
   generator: "v0.app",
 }
 

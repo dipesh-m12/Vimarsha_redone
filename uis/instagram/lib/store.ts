@@ -3,9 +3,9 @@ import type { Post } from "./dummy-data"
 // In-memory store for new posts (persists during session)
 const newPosts: Post[] = []
 
-export async function addPost(
+export function addPost(
   post: Omit<Post, "id" | "timestamp" | "isFlagged" | "likes" | "comments"> & { userId: string },
-): Promise<Post> {
+): Post {
   const newPost: Post = {
     ...post,
     id: `post_${Date.now()}`,
@@ -19,17 +19,10 @@ export async function addPost(
   return newPost
 }
 
-export async function getAllPosts(fromApi?: boolean): Promise<Post[]> {
-  if (fromApi) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/posts`, {
-      cache: "no-store",
-    })
-    const data = await response.json()
-    return [...newPosts, ...data.posts]
-  }
+export function getAllPosts(): Post[] {
   return newPosts
 }
 
-export async function getNewPosts(): Promise<Post[]> {
+export function getNewPosts(): Post[] {
   return newPosts
 }

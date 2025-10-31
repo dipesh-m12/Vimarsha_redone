@@ -1,0 +1,54 @@
+[
+    {
+        "user_avatar": "https://vimarsha-redone.vercel.app/diverse-user-avatars.png",
+        "user_alt": "Alex Chen",
+        "user_id": "112f46fae121e1c1efde0a6c3a648e7e",
+        "user_name": "Alex Chen",
+        "username": "@alexchen",
+        "post_time": "2 hours ago",
+        "text": "Win 1million dollars . Text here",
+        "replies": "45replies",
+        "reposts": "89reposts",
+        "likes": "234likes"
+    },
+    {
+        "user_avatar": "https://vimarsha-redone.vercel.app/diverse-user-avatars.png",
+        "user_alt": "Sarah Johnson",
+        "user_id": "112f46fae121e1c1efde0a6c3a648e7e",
+        "user_name": "Sarah Johnson",
+        "username": "@sarahj",
+        "post_time": "1 hour ago",
+        "text": "Beautiful sunset today 🌅",
+        "image_url": "https://vimarsha-redone.vercel.app/injections.jpg",
+        "image_alt": "Post content",
+        "replies": "156replies",
+        "reposts": "320reposts",
+        "likes": "1200likes"
+    },
+    {
+        "user_avatar": "https://vimarsha-redone.vercel.app/diverse-user-avatars.png",
+        "user_alt": "Dev Tips Daily",
+        "user_id": "112f46fae121e1c1efde0a6c3a648e7e",
+        "user_name": "Dev Tips Daily",
+        "username": "@devtipsdaily",
+        "post_time": "45 minutes ago",
+        "text": "Free laptop, pay shipping.",
+        "replies": "890replies",
+        "reposts": "2100reposts",
+        "likes": "5600likes"
+    },
+    {
+        "user_avatar": "https://vimarsha-redone.vercel.app/diverse-user-avatars.png",
+        "user_alt": "Sarah Johnson",
+        "user_id": "112f46fae121e1c1efde0a6c3a648e7e",
+        "user_name": "Sarah Johnson",
+        "username": "@sarahj",
+        "post_time": "1 hour ago",
+        "text": "Beautiful sunset today 🌅",
+        "image_url": "https://vimarsha-redone.vercel.app/fake3.jpg",
+        "image_alt": "Post content",
+        "replies": "156replies",
+        "reposts": "320reposts",
+        "likes": "1200likes"
+    }
+]

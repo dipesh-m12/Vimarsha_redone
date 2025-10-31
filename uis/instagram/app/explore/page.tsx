@@ -1,47 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Navigation } from "@/components/navigation"
 import Image from "next/image"
-import type { Post, User } from "@/lib/dummy-data"
+import { dummyPosts, dummyUsers } from "@/lib/dummy-data"
 import Link from "next/link"
 
 export default function ExplorePage() {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [users, setUsers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [postsRes, usersRes] = await Promise.all([fetch("/api/posts"), fetch("/api/users")])
-
-        const postsData = await postsRes.json()
-        const usersData = await usersRes.json()
-
-        setPosts(postsData.posts)
-        setUsers(usersData.users)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="md:ml-64">
-        <Navigation />
-        <div className="flex items-center justify-center h-screen">
-          <div className="text-muted-foreground">Loading...</div>
-        </div>
-      </div>
-    )
-  }
-
   return (
     <div className="md:ml-64">
       <Navigation />
@@ -52,7 +16,7 @@ export default function ExplorePage() {
         <div className="mb-12">
           <h2 className="text-xl font-semibold text-foreground mb-4">Suggested Users</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {users.slice(0, 12).map((user) => (
+            {dummyUsers.slice(0, 12).map((user) => (
               <Link key={user.id} href={`/profile/${user.id}`}>
                 <div className="flex flex-col items-center gap-2 hover:opacity-75 transition-opacity">
                   <div className="relative w-24 h-24">
@@ -84,7 +48,7 @@ export default function ExplorePage() {
         <div>
           <h2 className="text-xl font-semibold text-foreground mb-4">Popular Posts</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
-            {posts.map((post) => (
+            {dummyPosts.map((post) => (
               <div
                 key={post.id}
                 className="relative aspect-square overflow-hidden cursor-pointer hover:opacity-80 transition-opacity rounded-lg"
